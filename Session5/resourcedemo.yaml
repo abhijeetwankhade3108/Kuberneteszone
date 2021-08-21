@@ -1,0 +1,22 @@
+--- 
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: webserver
+  labels:
+    webserver: nginx
+    developer: UI 
+spec: 
+  container: 
+    - name: webserver
+      image: nginx
+      ports: 
+        - containerPort: 80
+          protocol: TCP 
+      resources:
+        limits: 
+          cpu: "1"
+          memory: "512M"
+        requests:
+          cpu: "0.5"
+          memory: "64M"  

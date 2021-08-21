@@ -1,0 +1,21 @@
+--- 
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: huge-request
+  labels:
+    deployment: dev-team
+spec: 
+  container: 
+    - name: webserver
+      image: nginx
+      ports: 
+        - containerPort: 80
+          protocol: TCP 
+      resources:
+        limits: 
+          cpu: "12"
+          memory: "64"
+        requests:
+          cpu: "6"
+          memory: "32"

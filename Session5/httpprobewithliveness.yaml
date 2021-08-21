@@ -1,0 +1,22 @@
+--- 
+apiVersion: v1
+kind: Pod  
+metadata: 
+  name: liveness-demo
+  labels:
+    environment: live
+spec:
+  restartPolicy: Always
+  containers:
+    - name: httpd
+      image: httpd
+      ports:
+        - containerPorts: 80
+      livenessProbe: 
+        httpGet:
+          port: 80
+          path: /
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 15
