@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: http-probe-demo
+  namespace: production
+spec:
+  restartPolicy: Always
+  containers:
+    - name: http-probe-demo
+      image: nginx
+      ports:
+        - name: webserver
+          containerPort: 8080
+          protocol: TCP
+      resources: 
+        limits:
+          cpu: "1"
+          memory: "512M"
+        requests:
+          cpu: "0.5"
+          memory: "64M"
+      command:
+        - "/bin/bash"
+        - "-ec"
+        - "sleep 30; touch /tmp/abhi.txt;" 
+      livenessProbe:
+        httpGet:
+          port: 80
+          path: /
+        initialDelaySeconds: 5
+        periodSeconds: 5
+        successThreshold: 1

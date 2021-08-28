@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replica-demo
+spec:
+  minReadySeconds: 5
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-petclinic
+  template:
+    metadata:
+      labels:
+        app: spring-petclinic
+    spec:
+      containers:
+        - name: game 
+          image: openjdk:8
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          command:
+            - "/bin/bash" 
+            - "apt install git -y; apt install maven -y; git clone https://github.com/Abhi-wan123/spring-petclinic.git; cd spring-petclinic; ./mvnw package"   
+          readinessProbe:
+            readinessProbe:
+            exec:
+              command:
+                - "java -jar spring-petclinic.jar"
+            initialDelaySeconds: 1
+            periodSeconds: 5 

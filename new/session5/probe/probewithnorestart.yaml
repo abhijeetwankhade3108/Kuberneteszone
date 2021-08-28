@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: liveness-with-norestart
+  namespace: production
+spec:
+  restartPolicy: Never
+  containers:
+    - name: liveness-with-norestart
+      image: ubuntu
+      ports:
+        - name: os
+          containerPort: 80
+          protocol: TCP
+      resources: 
+        limits:
+          cpu: "1"
+          memory: "512M"
+        requests:
+          cpu: "0.5"
+          memory: "64M"
+      command:
+        - "/bin/bash"
+        - "-ec"
+        - "touch /tmp/abhi.txt; sleep 30; rm /tmp/abhi.txt" 
+      livenessProbe:
+        exec:
+          command: 
+            - "cat"
+            - "/tmp/abhi.txt"
+        initialDelaySeconds: 5
+        periodSeconds: 5

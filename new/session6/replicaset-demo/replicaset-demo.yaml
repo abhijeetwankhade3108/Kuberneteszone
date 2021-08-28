@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replica-demo
+spec:
+  minReadySeconds: 5
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: webserver
+          image: nginx
+          ports:
+            - containerPort: 80
+              protocol: TCP 
+          readinessProbe:
+            readinessProbe:
+            httpGet: 
+              path: /
+              port: 80
+            initialDelaySeconds: 1
+            periodSeconds: 5
+                  

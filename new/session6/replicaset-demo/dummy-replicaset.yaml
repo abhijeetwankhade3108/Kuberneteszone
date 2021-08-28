@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: label-demo
+  labels:
+    environment: production
+    stage: testing
+    teams: infra-ops
+    app: nginx
+spec:
+  containers:
+  - name: label-demo
+    image: httpd
+    ports:
+      - containerPort: 80

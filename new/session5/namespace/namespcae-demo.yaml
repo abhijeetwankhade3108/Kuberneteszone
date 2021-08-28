@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: namespcae-demo
+  namespace: dev
+spec:
+  containers:
+    - name: jenkins-image
+      image: jenkins/jenkins
+      ports:
+        - name: working_ports 
+          containerPort: 8080

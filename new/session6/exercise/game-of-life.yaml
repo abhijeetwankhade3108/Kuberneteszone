@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replica-demo
+spec:
+  minReadySeconds: 5
+  replicas: 3
+  selector:
+    matchLabels:
+      app: game-of-life
+  template:
+    metadata:
+      labels:
+        app: game-of-life
+    spec:
+      containers:
+        - name: game 
+          image: openjdk:8
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          command:
+            - "/bin/bash" 
+            - "apt install git -y; apt install maven -y; git clone https://github.com/wakaleo/game-of-life.git; cd game-of-life; mvn package"   
+          readinessProbe:
+            readinessProbe:
+            exec:
+              command:
+                - "java -jar **/*.war"
+            initialDelaySeconds: 1
+            periodSeconds: 5 
