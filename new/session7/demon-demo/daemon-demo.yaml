@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemon-demo
+  labels:
+    app: daemon-example
+spec:
+  minReadySeconds: 5
+  selector:
+    app: daemon-example
+  template:
+    metadata: 
+      name: daemon-demo
+      labels:
+        app: daemon-example
+    spec:
+      containers:
+        - name: alpine
+          image: alpine:latest  
+          args:
+            - "/bin/sh" 
+            - "-c"  
+            - "sleep 1d"
+    
+  
